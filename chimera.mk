@@ -6,9 +6,9 @@
 # Lorenzo Leone <lleone@iis.ee.ethz.ch>
 
 
-CLINTCORES = 18
-PLICCORES = 36
-PLIC_NUM_INTRS = 36
+CLINTCORES = 26
+PLICCORES = 52
+PLIC_NUM_INTRS = 52
 
 
 .PHONY: update_plic
@@ -26,9 +26,9 @@ CHS_SW_LD_DIR = $(CHIM_ROOT)/sw/link
 chs-hw-init: update_plic gen_idma_hw $(CHIM_SW_LIB)
 	make -B chs-hw-all CHS_XLEN=$(CHS_XLEN) CHS_SW_LD_DIR=$(CHS_SW_LD_DIR)
 
-.PHONY: snitch-hw-init
-snitch-hw-init:
-	make -C $(SNITCH_ROOT)/target/snitch_cluster bin/snitch_cluster.vsim
+# .PHONY: snitch-hw-init
+# snitch-hw-init:
+# 	make -C $(SNITCH_ROOT)/target/snitch_cluster bin/snitch_cluster.vsim
 
 .PHONY: $(CHIM_SW_DIR)/include/regs/soc_ctrl.h
 $(CHIM_SW_DIR)/include/regs/soc_ctrl.h: $(CHIM_ROOT)/hw/regs/chimera_regs.hjson
@@ -90,7 +90,7 @@ chim-nonfree-init:
 # Phonies for the entire system #
 #################################
 
-CHIM_ALL += chs-hw-init snitch-hw-init chim-sw chim-bootrom-init chs-sim-all chim-sim
+CHIM_ALL += chs-hw-init chim-sw chim-bootrom-init chs-sim-all chim-sim
 CHIM_CLEAN += chim-sw-clean chim-sim-clean
 
 .PHONY: chim-all
