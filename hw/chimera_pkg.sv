@@ -21,7 +21,7 @@ package chimera_pkg;
   // | Cluster domain config  |
   // --------------------------
 
-  localparam int ExtClusters = 5;
+  localparam int ExtClusters = 6;
 
   typedef struct packed {
     logic [iomsb(ExtClusters):0]   hasWideMasterPort;
@@ -33,10 +33,11 @@ package chimera_pkg;
   localparam int unsigned TUDDCIMIDX = 2;
   localparam int unsigned KULCLUSTERIDX = 3;
   localparam int unsigned ETHCLUSTERIDX = 4;
+  localparam int unsigned ETHCLUSTERIDX2 = 5;
 
   localparam cluster_config_t ChimeraClusterCfg = '{
-      hasWideMasterPort: {1'b1, 1'b1, 1'b1, 1'b1, 1'b1},
-      NrCores: {8'h9, 8'h2, 8'h2, 8'h2, 8'h2}
+      hasWideMasterPort: {1'b1,1'b1, 1'b1, 1'b1, 1'b1, 1'b1},
+      NrCores: {8'h9, 8'h9, 8'h2, 8'h2, 8'h2, 8'h2}
   };
 
   function automatic int _sumVector(byte_bt [iomsb(ExtClusters):0] vector, int vectorLen);
@@ -104,16 +105,16 @@ package chimera_pkg;
   // --------------------------
 
   // Cluster domain
-  localparam byte_bt [iomsb(ExtClusters):0] ClusterIdx = {8'h4, 8'h3, 8'h2, 8'h1, 8'h0};
+  localparam byte_bt [iomsb(ExtClusters):0] ClusterIdx = {8'h5, 8'h4, 8'h3, 8'h2, 8'h1, 8'h0};
   localparam doub_bt [iomsb(
 ExtClusters
 ):0] ClusterRegionStart = {
-    64'h4080_0000, 64'h4060_0000, 64'h4040_0000, 64'h4020_0000, 64'h4000_0000
+    64'h40A0_0000, 64'h4080_0000, 64'h4060_0000, 64'h4040_0000, 64'h4020_0000, 64'h4000_0000
   };
   localparam doub_bt [iomsb(
 ExtClusters
 ):0] ClusterRegionEnd = {
-    64'h40A0_0000, 64'h4080_0000, 64'h4060_0000, 64'h4040_0000, 64'h4020_0000
+    64'h40C0_0000, 64'h40A0_0000, 64'h4080_0000, 64'h4060_0000, 64'h4040_0000, 64'h4020_0000
   };
 
   localparam aw_bt ClusterNarrowAxiMstIdWidth = 2;

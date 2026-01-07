@@ -353,6 +353,36 @@ module chimera_clu_domain
     .wide_out_resp_i  (wide_out_resp_i[ETHCLUSTERIDX])
   );
 
+  chimera_cluster_ethcluster #(
+    .Cfg              (Cfg),
+    .NrCores          (`NRCORES(ETHCLUSTERIDX2)),
+    .narrow_in_req_t  (narrow_in_req_t),
+    .narrow_in_resp_t (narrow_in_resp_t),
+    .narrow_out_req_t (narrow_out_req_t),
+    .narrow_out_resp_t(narrow_out_resp_t),
+    .wide_out_req_t   (wide_out_req_t),
+    .wide_out_resp_t  (wide_out_resp_t)
+  ) i_chimera_cluster_ethcluster2 (
+    .soc_clk_i          (soc_clk_i),
+    .clu_clk_i          (clu_clk_i[ETHCLUSTERIDX2]),
+    .rst_ni             (rst_ni[ETHCLUSTERIDX2]),
+    .widemem_bypass_i   (widemem_bypass_i[ETHCLUSTERIDX2]),
+    .debug_req_i        (debug_req_i[`PREVNRCORES(ETHCLUSTERIDX2)+:`NRCORES(ETHCLUSTERIDX2)]),
+    .meip_i             (xeip_i[`PREVNRCORES(ETHCLUSTERIDX2)+:`NRCORES(ETHCLUSTERIDX2)]),
+    .mtip_i             (mtip_i[`PREVNRCORES(ETHCLUSTERIDX2)+:`NRCORES(ETHCLUSTERIDX2)]),
+    .msip_i             (msip_i[`PREVNRCORES(ETHCLUSTERIDX2)+:`NRCORES(ETHCLUSTERIDX2)]),
+    .hart_base_id_i     (10'(`PREVNRCORES(ETHCLUSTERIDX2) + 1)),
+    .cluster_base_addr_i(Cfg.ChsCfg.AxiExtRegionStart[ETHCLUSTERIDX2][Cfg.ChsCfg.AddrWidth-1:0]),
+    .boot_addr_i        (boot_addr_i),
+
+    .narrow_in_req_i  (narrow_in_req_i[ETHCLUSTERIDX2]),
+    .narrow_in_resp_o (narrow_in_resp_o[ETHCLUSTERIDX2]),
+    .narrow_out_req_o (narrow_out_req_o[2*ETHCLUSTERIDX2+:2]),
+    .narrow_out_resp_i(narrow_out_resp_i[2*ETHCLUSTERIDX2+:2]),
+    .wide_out_req_o   (wide_out_req_o[ETHCLUSTERIDX2]),
+    .wide_out_resp_i  (wide_out_resp_i[ETHCLUSTERIDX2])
+  );
+
 `else
 
   chimera_cluster #(

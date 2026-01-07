@@ -32,6 +32,8 @@ void waitClusterBusy(uint8_t clusterId) {
         busy_ptr = (volatile int32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_3_BUSY_REG_OFFSET);
     } else if (clusterId == 4) {
         busy_ptr = (volatile int32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_4_BUSY_REG_OFFSET);
+    } else if (clusterId == 5) {
+        busy_ptr = (volatile int32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_5_BUSY_REG_OFFSET);
     }
 
     while (*busy_ptr == 1) {
@@ -60,6 +62,8 @@ void setClusterClockGating(volatile uint8_t *regPtr, uint8_t clusterId, bool ena
         *(regPtr + CHIMERA_CLUSTER_3_CLK_GATE_EN_REG_OFFSET) = enable;
     } else if (clusterId == 4) {
         *(regPtr + CHIMERA_CLUSTER_4_CLK_GATE_EN_REG_OFFSET) = enable;
+    } else if (clusterId == 5) {
+        *(regPtr + CHIMERA_CLUSTER_5_CLK_GATE_EN_REG_OFFSET) = enable;
     }
 }
 
@@ -73,6 +77,7 @@ void setAllClusterClockGating(volatile uint8_t *regPtr, bool enable) {
     *(regPtr + CHIMERA_CLUSTER_2_CLK_GATE_EN_REG_OFFSET) = enable;
     *(regPtr + CHIMERA_CLUSTER_3_CLK_GATE_EN_REG_OFFSET) = enable;
     *(regPtr + CHIMERA_CLUSTER_4_CLK_GATE_EN_REG_OFFSET) = enable;
+    *(regPtr + CHIMERA_CLUSTER_5_CLK_GATE_EN_REG_OFFSET) = enable;
 }
 
 /* Set Soft Reset on specified cluster */
@@ -90,6 +95,8 @@ void setClusterReset(volatile uint8_t *regPtr, uint8_t clusterId, bool enable) {
         *(regPtr + CHIMERA_RESET_CLUSTER_3_REG_OFFSET) = enable;
     } else if (clusterId == 4) {
         *(regPtr + CHIMERA_RESET_CLUSTER_4_REG_OFFSET) = enable;
+    } else if (clusterId == 5) {
+        *(regPtr + CHIMERA_RESET_CLUSTER_5_REG_OFFSET) = enable;
     }
 }
 
@@ -103,6 +110,7 @@ void setAllClusterReset(volatile uint8_t *regPtr, bool enable) {
     *(regPtr + CHIMERA_RESET_CLUSTER_2_REG_OFFSET) = enable;
     *(regPtr + CHIMERA_RESET_CLUSTER_3_REG_OFFSET) = enable;
     *(regPtr + CHIMERA_RESET_CLUSTER_4_REG_OFFSET) = enable;
+    *(regPtr + CHIMERA_RESET_CLUSTER_5_REG_OFFSET) = enable;
 }
 
 /* Offloads a void function pointer to the specified cluster's core 0 */
@@ -142,6 +150,9 @@ uint32_t waitForCluster(uint8_t clusterId) {
     } else if (clusterId == 4) {
         snitchReturnAddr =
             (volatile int32_t *)(SOC_CTRL_BASE + CHIMERA_SNITCH_CLUSTER_4_RETURN_REG_OFFSET);
+    } else if (clusterId == 5) {
+        snitchReturnAddr =
+            (volatile int32_t *)(SOC_CTRL_BASE + CHIMERA_SNITCH_CLUSTER_5_RETURN_REG_OFFSET);
     }
 
     while (*snitchReturnAddr == 0) {

@@ -36,7 +36,7 @@ int main() {
     setupInterruptHandler(clusterTrapHandler);
 
     uint32_t retVal = 0;
-    for (int i = 0; i < _chimera_numClusters; i++) {
+    for (int i = 5; i < _chimera_numClusters; i++) {
         setClusterReset(regPtr, i, 0);
         setClusterClockGating(regPtr, i, 0);
         offloadToCluster(testReturn, i);

@@ -59,6 +59,10 @@ void cluster_return(uint32_t ret) {
         *((volatile uint32_t *)(SOC_CTRL_BASE + CHIMERA_SNITCH_CLUSTER_4_RETURN_REG_OFFSET)) =
             retVal;
         break;
+    case 1 + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES + CLUSTER_4_NUMCORES:
+        *((volatile uint32_t *)(SOC_CTRL_BASE + CHIMERA_SNITCH_CLUSTER_5_RETURN_REG_OFFSET)) =
+            retVal;
+        break;
     }
 
     return;
@@ -86,6 +90,9 @@ void clean_busy() {
     case 1 + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES:
         *((volatile uint32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_4_BUSY_REG_OFFSET)) = 0;
         break;
+    case 1 + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES + CLUSTER_4_NUMCORES:
+        *((volatile uint32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_5_BUSY_REG_OFFSET)) = 0;
+        break;
     }
 
     return;
@@ -112,6 +119,9 @@ void set_busy() {
         break;
     case 1 + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES:
         *((volatile uint32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_4_BUSY_REG_OFFSET)) = 1;
+        break;
+    case 1 + CLUSTER_0_NUMCORES + CLUSTER_1_NUMCORES + CLUSTER_2_NUMCORES + CLUSTER_3_NUMCORES + CLUSTER_4_NUMCORES:
+        *((volatile uint32_t *)(SOC_CTRL_BASE + CHIMERA_CLUSTER_5_BUSY_REG_OFFSET)) = 1;
         break;
     }
 
