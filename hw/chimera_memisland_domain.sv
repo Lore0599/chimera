@@ -105,7 +105,8 @@ module chimera_memisland_domain
     .NumWideReq      (Cfg.MemIslWidePorts),
     .NumWideBanks    (Cfg.MemIslNumWideBanks),
     .NarrowExtraBF   (1),
-    .WordsPerBank    (Cfg.MemIslWordsPerBank)
+    .WordsPerBank    (Cfg.MemIslWordsPerBank),
+    .DisableWideBankInterleaving(1'b1)
   ) i_memory_island (
     .clk_i           (clk_i),
     .rst_ni,
